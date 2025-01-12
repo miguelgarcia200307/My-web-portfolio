@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/thanks.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>¡Gracias por tu mensaje!</title>
+</head>
+<body>
+    <div class="thanks-container">
+        <div class="emoji-animation">
+            <i class="fas fa-envelope-open-text"></i>
+            <div class="hearts">
+                <i class="fas fa-heart"></i>
+                <i class="fas fa-heart"></i>
+                <i class="fas fa-heart"></i>
+            </div>
+        </div>
+        <h1>¡Wohoo! ¡Mensaje Recibido! 🎉</h1>
+        <p class="message">Tu mensaje está volando directo a mi bandeja de entrada. ¡Me pondré en contacto contigo más rápido que un desarrollador tomando café! ☕</p>
+        <div class="fun-facts">
+            <p class="fact">Mientras tanto, ¿sabías que...</p>
+            <p id="randomFact" class="fact-text">Los programadores pueden convertir café en código? ¡Es magia! ✨</p>
+            <button onclick="showNewFact()" class="fact-button">
+                <i class="fas fa-random"></i> ¡Otro dato curioso!
+            </button>
+        </div>
+        <a href="/" class="btn-back">
+            <i class="fas fa-home"></i> Volver al inicio
+        </a>
+    </div>
+
+    <script>
+        const funFacts = [
+            "Los programadores pueden convertir café en código? ¡Es magia! ✨",
+            "El primer 'bug' de computadora fue literalmente un insecto? ¡Una polilla! 🪲",
+            "Hay aproximadamente 700 lenguajes de programación? ¡Y sigo aprendiendo! 📚",
+            "El primer programador fue una mujer? ¡Ada Lovelace! 👩‍💻",
+            "Los desarrolladores pasamos 30% de nuestro tiempo mirando Stack Overflow? 😅",
+            "El código de la primera página web aún existe? ¡Y todavía funciona! 🌐"
+        ];
+
+        let currentFact = 0;
+        function showNewFact() {
+            const factElement = document.getElementById('randomFact');
+            currentFact = (currentFact + 1) % funFacts.length;
+            factElement.style.opacity = '0';
+            setTimeout(() => {
+                factElement.textContent = funFacts[currentFact];
+                factElement.style.opacity = '1';
+            }, 300);
+        }
+
+        // Animación de corazones
+        document.querySelectorAll('.hearts i').forEach((heart, index) => {
+            heart.style.animationDelay = `${index * 0.3}s`;
+        });
+    </script>
+</body>
+</html>
