@@ -228,7 +228,7 @@
             <!-- Contact Section -->
             <section class="contact" id="contact">
                 <h2 data-translate="contactTitle">Let’s Connect</h2>
-                <form method="POST" action="thanks.html" class="contact-form">
+                <form id="contactForm" class="contact-form">
                     <div class="form-group">
                         <input type="text" id="name" name="name" placeholder=" " required>
                         <label for="name" data-translate="nameLabel">Name</label>
@@ -298,6 +298,13 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            window.location.href = 'thanks.html';
+        });
+    </script>
 </body>
 </html>
 
