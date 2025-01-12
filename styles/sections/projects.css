@@ -1,0 +1,201 @@
+.projects {
+    margin-top: 80px;
+    padding: 40px;
+    background: var(--card-bg);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.projects h2 {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    text-align: center;
+    background: linear-gradient(45deg, var(--primary-color), #2980b9);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.projects h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: var(--primary-color);
+    border-radius: 2px;
+}
+
+.carousel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 20px;
+    overflow: visible;
+}
+
+.carousel-item {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    background: var(--bg-color);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    height: 350px;
+}
+
+.carousel-item::before {
+    content: '👆 Click para más detalles';
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--primary-color);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.carousel-item:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-item:hover::before {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.carousel-item:hover img {
+    transform: scale(1.1);
+}
+
+.project-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.9) 0%,
+        rgba(0, 0, 0, 0.7) 50%,
+        transparent 100%
+    );
+    padding: 30px;
+    transform: translateY(100px);
+    transition: transform 0.5s ease;
+}
+
+.carousel-item:hover .project-overlay {
+    transform: translateY(0);
+}
+
+.project-overlay h3 {
+    font-size: 1.5rem;
+    color: #ffffff;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.project-overlay p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    line-height: 1.6;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.3s ease 0.1s;
+}
+
+.carousel-item:hover .project-overlay h3,
+.carousel-item:hover .project-overlay p {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+@media (max-width: 768px) {
+    .projects {
+        padding: 20px;
+        margin-top: 40px;
+    }
+
+    .carousel {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .carousel-item {
+        height: 300px;
+    }
+
+    .project-overlay {
+        padding: 20px;
+    }
+
+    .project-overlay h3 {
+        font-size: 1.3rem;
+    }
+
+    .project-overlay p {
+        font-size: 0.9rem;
+    }
+}
+
+/* Efectos de hover mejorados */
+.carousel-item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(52, 152, 219, 0.2), rgba(46, 204, 113, 0.2));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.carousel-item:hover::after {
+    opacity: 1;
+}
+
+/* Animación de carga */
+@keyframes projectFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.carousel-item {
+    animation: projectFadeIn 0.6s ease forwards;
+}
+
+.carousel-item:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.carousel-item:nth-child(3) {
+    animation-delay: 0.4s;
+}

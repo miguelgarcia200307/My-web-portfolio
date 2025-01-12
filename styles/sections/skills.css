@@ -1,0 +1,139 @@
+.skills {
+    margin-top: 60px;
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.skills h2 {
+    margin-bottom: 30px;
+    color: var(--primary-color);
+    position: relative;
+    display: inline-block;
+}
+
+.skills h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 50%;
+    height: 3px;
+    background: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.skills h2:hover::after {
+    width: 100%;
+}
+
+.skills-tree {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.skill-branch {
+    flex: 1;
+    min-width: 250px;
+    background: var(--bg-color);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    color: var(--skill-text);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.skill-branch:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.skill-branch::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--primary-color);
+    transition: transform 0.3s ease;
+    transform: scaleY(0);
+    transform-origin: bottom;
+}
+
+.skill-branch:hover::before {
+    transform: scaleY(1);
+}
+
+.skill-branch ul {
+    list-style-type: none;
+    padding-left: 20px;
+    margin-top: 15px;
+}
+
+.skill-branch li {
+    margin-bottom: 12px;
+    position: relative;
+    padding-left: 25px;
+    font-size: 1.1rem;
+    transition: transform 0.3s ease;
+}
+
+.skill-branch li:hover {
+    transform: translateX(5px);
+}
+
+.skill-branch li:before {
+    content: '\2022';
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+    font-size: 1.5em;
+    line-height: 1;
+}
+
+/* Dark theme adjustments */
+[data-theme="dark"] .skill-branch {
+    border: 1px solid #4a4a4a;
+    background: var(--card-bg);
+}
+
+[data-theme="dark"] .skill-branch li {
+    color: var(--text-color);
+}
+
+/* Skill level indicators */
+.skill-level {
+    height: 4px;
+    background: #e1e1e1;
+    margin-top: 5px;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.skill-level-fill {
+    height: 100%;
+    background: var(--primary-color);
+    transform-origin: left;
+    animation: fillSkill 1.5s ease forwards;
+}
+
+@keyframes fillSkill {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .skills-tree {
+        gap: 20px;
+    }
+
+    .skill-branch {
+        flex: 1 1 100%;
+    }
+}

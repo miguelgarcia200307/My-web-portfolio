@@ -1,0 +1,401 @@
+.hero {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 60px;
+    align-items: center;
+    min-height: calc(100vh - 80px);
+    text-align: left;
+    background: var(--hero-gradient);
+    color: white;
+    padding: 80px 60px;
+    border-radius: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 60px;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at top right, 
+        rgba(255, 255, 255, 0.1), 
+        transparent 60%);
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    animation: fadeInUp 1s ease-out;
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.hero h1 {
+    font-size: 4.5rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    line-height: 1.1;
+    background: linear-gradient(to right, #ffffff, #e1e1e1);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    position: relative;
+    width: 100%;
+    text-align: left;
+}
+
+.hero h1::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    width: 100px;
+    height: 4px;
+    background: var(--primary-color);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.hero:hover h1::after {
+    width: 150px;
+}
+
+.hero p {
+    font-size: 1.4rem;
+    margin: 20px 0 40px;
+    opacity: 0.9;
+    line-height: 1.6;
+    max-width: 100%;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    animation: fadeInUp 1s ease-out 0.2s both;
+    text-align: left;
+}
+
+.hero-image {
+    position: relative;
+    text-align: center;
+    animation: fadeInRight 1s ease-out;
+}
+
+.hero-image::before {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border: 4px dashed var(--primary-color);
+    border-radius: 50%;
+    top: -20px;
+    right: -20px;
+    animation: rotate 20s linear infinite;
+    opacity: 0.2;
+}
+
+.hero-image::after {
+    content: '';
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: linear-gradient(45deg, var(--primary-color), rgba(41, 128, 185, 0.5));
+    border-radius: 20px;
+    bottom: -20px;
+    left: -20px;
+    z-index: 0;
+    opacity: 0.6;
+    transform: scale(1);
+    /* Eliminar todas las animaciones y transiciones previas */
+    animation: fadeInStay 0.5s ease forwards;
+    pointer-events: none;
+}
+
+/* Nuevo keyframe para mantener el elemento visible */
+@keyframes fadeInStay {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    100% {
+        opacity: 0.6;
+        transform: scale(1);
+    }
+}
+
+/* Efecto hover simplificado */
+.hero-image:hover::after {
+    opacity: 0.8;
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+}
+
+.dev-image {
+    width: 450px;
+    height: 450px;
+    object-fit: cover;
+    border-radius: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    transition: all 0.5s ease;
+    transform: perspective(1000px) rotateY(-5deg);
+    animation: float 6s ease-in-out infinite;
+    position: relative;
+    z-index: 1; /* Asegura que la imagen esté por encima del recuadro */
+}
+
+.hero:hover .dev-image {
+    transform: perspective(1000px) rotateY(0deg) translateZ(20px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+}
+
+.image-decoration {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 20px;
+    left: 20px;
+    border: 4px solid var(--primary-color);
+    border-radius: 30px;
+    z-index: 0; /* Cambiado de -1 a 0 */
+    opacity: 0.6;
+    transition: transform 0.3s ease;
+    /* Eliminar animation que causa la desaparición */
+    pointer-events: none; /* Asegura que no interfiera con clicks */
+}
+
+/* Mantener el recuadro visible en hover */
+.hero-image:hover .image-decoration {
+    transform: translate(5px, 5px);
+    opacity: 0.8;
+}
+
+.hero:hover .image-decoration {
+    transform: translate(10px, 10px);
+    opacity: 0.8;
+}
+
+.hero-image:hover .image-decoration {
+    opacity: 0.8;
+    border-color: var(--primary-color);
+}
+
+.image-decoration::before,
+.image-decoration::after {
+    content: '';
+    position: absolute;
+    background: var(--primary-color);
+    border-radius: 50%;
+    animation: bounce 2s infinite;
+}
+
+.image-decoration::before {
+    width: 20px;
+    height: 20px;
+    top: -30px;
+    left: -30px;
+}
+
+.image-decoration::after {
+    width: 15px;
+    height: 15px;
+    bottom: -20px;
+    right: -20px;
+    animation-delay: 0.5s;
+}
+
+.hero:hover .image-decoration {
+    transform: translate(10px, 10px);
+    opacity: 0.8;
+}
+
+.btn-primary {
+    align-self: flex-start;
+    padding: 15px 40px;
+    font-size: 1.1rem;
+    border-radius: 30px;
+    background: linear-gradient(45deg, var(--primary-color), #2980b9);
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.btn-primary:hover::before {
+    left: 100%;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0.6; /* Cambiar de 0 a 0.6 */
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 0.6; /* Mantener la opacidad constante */
+        transform: translateX(0);
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulse {
+     0%, 100% {
+        transform: scale(1);
+        opacity: 0.6;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.8;
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@media (max-width: 1200px) {
+    .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 60px 40px;
+    }
+
+    .hero-content {
+        align-items: center;
+    }
+
+    .hero h1 {
+        font-size: 3.5rem;
+        text-align: center;
+    }
+
+    .hero h1::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .hero p {
+        margin: 0 auto 40px;
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    .hero-image {
+        order: -1;
+        margin-bottom: 40px;
+    }
+
+    .dev-image {
+        width: 350px;
+        height: 350px;
+    }
+
+    .btn-primary {
+        align-self: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 40px 20px;
+    }
+
+    .hero h1 {
+        font-size: 2.8rem;
+    }
+
+    .hero p {
+        font-size: 1.1rem;
+    }
+
+    .dev-image {
+        width: 280px;
+        height: 280px;
+    }
+
+    .btn-primary {
+        padding: 12px 30px;
+        font-size: 1rem;
+    }
+
+    .hero-image::before {
+        width: 150px;
+        height: 150px;
+    }
+
+    .hero-image::after {
+        width: 100px;
+        height: 100px;
+    }
+}

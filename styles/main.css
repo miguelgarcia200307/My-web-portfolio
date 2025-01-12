@@ -1,0 +1,15 @@
+@import 'base/reset.css';
+@import 'base/variables.css';
+@import 'components/buttons.css';
+@import 'components/modal.css';
+@import 'components/navigation.css';
+@import 'components/cards.css';
+@import 'layout/grid.css';
+@import 'layout/sidebar.css';
+@import 'layout/footer.css'; /* Ensure this line exists */
+@import 'sections/hero.css';
+@import 'sections/about.css';
+@import 'sections/projects.css';
+@import 'sections/skills.css';
+@import 'sections/contact.css';
+@import 'sections/education.css';
