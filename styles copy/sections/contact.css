@@ -6,6 +6,7 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     position: relative;
     overflow: hidden;
+    width: 100%; /* Ensure it takes full width */
 }
 
 .contact::before {
@@ -207,20 +208,43 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .contact {
-        padding: 20px;
+        padding: 1.5rem;
+        margin-top: 2rem;
     }
 
     .contact-form {
+        padding: 1rem;
         grid-template-columns: 1fr;
-        padding: 20px;
+        gap: 1rem;
     }
 
     .form-group {
-        grid-column: 1 / -1;
+        margin-bottom: 1rem;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .contact-form label {
+        font-size: 0.8rem;
     }
 
     .contact-form button {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
         width: 100%;
-        padding: 12px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact {
+        padding: 15px;
+    }
+
+    .contact-form {
+        padding: 15px;
     }
 }

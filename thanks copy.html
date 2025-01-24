@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Gracias! | Miguel DEV Portfolio</title>
+    <link rel="icon" href="img/portafolio.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles/thanks.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="thanks-card">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+                <div class="particles"></div>
+            </div>
+            <h1>¡Wohoo! ¡Mensaje Recibido! 🎉</h1>
+            <p class="main-message">¡Tu mensaje está volando directo a mi bandeja de entrada! Me pondré en contacto contigo más rápido que un desarrollador tomando café! ☕</p>
+            
+            <div class="status-card">
+                <div class="status-icon">
+                    <i class="fas fa-paper-plane"></i>
+                </div>
+                <div class="status-info">
+                    <span class="status-label">Estado del mensaje</span>
+                    <span class="status-text">Entregado exitosamente</span>
+                </div>
+            </div>
+
+            <div class="divider">
+                <span>Mientras esperas... 🤓</span>
+            </div>
+
+            <div class="fun-fact-card">
+                <div class="fact-content">
+                    <i class="fas fa-lightbulb fact-icon"></i>
+                    <p id="randomFact">¿Sabías que los programadores pueden convertir café en código? ¡Es magia! ✨</p>
+                </div>
+                <button onclick="showNewFact()" class="next-fact-btn">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+            </div>
+
+            <div class="action-buttons">
+                <a href="index.html" class="btn-primary">
+                    <i class="fas fa-home"></i>
+                    Volver al Portfolio
+                </a>
+                <a href="https://www.linkedin.com/in/tu-perfil" target="_blank" class="btn-social">
+                    <i class="fab fa-linkedin"></i>
+                    ¡Conectemos!
+                </a>
+            </div>
+
+            <div class="additional-info">
+                <p>¿Quieres saber más? 🚀</p>
+                <ul>
+                    <li onclick="window.location.href='#projects'">
+                        <i class="fas fa-folder-open"></i>
+                        Ver más proyectos increíbles
+                    </li>
+                    <li onclick="window.location.href='URL_DE_TU_GITHUB'">
+                        <i class="fab fa-github"></i>
+                        Explorar mi código en GitHub
+                    </li>
+                    <li onclick="window.location.href='URL_DE_TU_CV'">
+                        <i class="fas fa-file-pdf"></i>
+                        Descargar mi CV
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="theme-toggle" id="theme-toggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        function setTheme(isDark) {
+            document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+            themeToggle.querySelector('i').className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+        }
+
+        // Initial theme
+        setTheme(prefersDark.matches);
+
+        themeToggle.addEventListener('click', () => {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            setTheme(!isDark);
+        });
+
+        // Fun facts rotation
+        const facts = [
+            "¿Sabías que el primer 'bug' informático fue realmente un insecto?",
+            "El lenguaje Python fue nombrado por el grupo Monty Python, ¡no por la serpiente!",
+            "El primer programador de la historia fue una mujer: Ada Lovelace",
+            "¡Hay más de 700 lenguajes de programación en uso activo!",
+            "El primer sitio web sigue en línea desde 1991"
+        ];
+
+        let currentFact = 0;
+        const factElement = document.getElementById('randomFact');
+
+        function showNewFact() {
+            const button = document.querySelector('.next-fact-btn');
+            button.classList.add('rotating');
+            
+            factElement.style.opacity = '0';
+            setTimeout(() => {
+                currentFact = (currentFact + 1) % facts.length;
+                factElement.textContent = facts[currentFact];
+                factElement.style.opacity = '1';
+                setTimeout(() => button.classList.remove('rotating'), 500);
+            }, 300);
+        }
+
+        // Create particle effects
+        function createParticles() {
+            const particles = document.querySelector('.particles');
+            for(let i = 0; i < 12; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particles.appendChild(particle);
+            }
+        }
+
+        createParticles();
+    </script>
+</body>
+</html>

@@ -20,6 +20,9 @@
     padding: 1rem;
     width: 100%;
     position: relative;
+    display: flex;
+    flex-direction: column; /* Ensure vertical layout */
+    align-items: center;
 }
 
 .profile::after {
@@ -185,34 +188,177 @@
         position: relative;
         width: 100%;
         height: auto;
-        padding: 1rem;
+        padding: 0.5rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
 
     .profile {
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
+        padding: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .profile-pic {
-        width: 120px;
-        height: 120px;
+        width: 80px;
+        height: 80px;
+        margin-bottom: 0.5rem;
+    }
+
+    .profile h1 {
+        font-size: 1.2rem;
+    }
+
+    .profile p {
+        font-size: 0.9rem;
     }
 
     .nav-menu {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
+        flex-direction: column; /* Ensure vertical layout */
         gap: 0.5rem;
+        padding: 0.5rem;
     }
 
     .nav-link {
-        padding: 0.8rem 1.2rem;
+        padding: 0.8rem 1rem;
         font-size: 0.9rem;
-        flex: 1 1 auto;
-        min-width: 120px;
+        width: 100%; /* Full width */
     }
 
     .nav-link:hover {
-        transform: translateY(-5px);
+        transform: translateX(5px);
+    }
+}
+
+@media (max-width: 767px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+        padding: 0.5rem;
+        z-index: 1000;
+        background: var(--sidebar-bg);
+    }
+
+    .profile {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+        padding: 0.5rem;
+    }
+
+    .nav-menu {
+        display: flex;
+        flex-direction: column; /* Ensure vertical layout */
+        gap: 0.3rem;
+        padding: 0.5rem;
+    }
+
+    .nav-link {
+        width: 100%; /* Full width */
+        text-align: left;
+        padding: 0.8rem 1.2rem;
+        font-size: 0.9rem;
+        margin: 0.1rem 0;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--nav-link-bg);
+        transition: all 0.3s ease;
+    }
+
+    .nav-link:hover {
+        transform: translateX(5px);
+        background: var(--primary-color);
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-pic {
+        width: 60px;
+        height: 60px;
+    }
+
+    .profile h1 {
+        font-size: 1rem;
+    }
+
+    .profile p {
+        font-size: 0.8rem;
+    }
+
+    .nav-menu {
+        padding: 0.3rem;
+    }
+
+    .nav-link {
+        padding: 0.7rem 1rem;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-menu {
+        padding: 0.2rem;
+    }
+
+    .nav-link {
+        font-size: 0.7rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    .profile-pic {
+        width: 30px;
+        height: 30px;
+    }
+
+    .profile h1 {
+        font-size: 0.85rem;
+    }
+
+    .profile p {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-menu {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .nav-link {
+        font-size: 0.7rem;
+        padding: 0.35rem 0.3rem;
+    }
+
+    .profile-pic {
+        width: 30px;
+        height: 30px;
+    }
+
+    .profile h1 {
+        font-size: 0.85rem;
+    }
+
+    .profile p {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .nav-menu {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.2rem;
+    }
+
+    .nav-link {
+        font-size: 0.65rem;
+        padding: 0.3rem 0.2rem;
     }
 }
 
@@ -235,4 +381,17 @@
 .sidebar::-webkit-scrollbar-thumb {
     background: var(--primary-color);
     border-radius: 3px;
+}
+
+@media (min-width: 768px) {
+    .sidebar {
+        width: 300px;
+        height: 100vh;
+        position: fixed;
+        left: 0; /* Ensure sidebar is fixed to the left */
+    }
+
+    .main-content {
+        margin-left: 300px; /* Align main content with sidebar */
+    }
 }

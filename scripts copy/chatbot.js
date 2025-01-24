@@ -18,7 +18,8 @@ class Chatbot {
                 country: "Miguel es de Colombia.",
                 fieldOfStudy: "Miguel estudia Ingeniería de Sistemas.",
                 default: "Lo siento, no entiendo esa pregunta. ¿Podrías reformularla? Puedo hablar sobre proyectos, habilidades, educación, experiencia o información de contacto.",
-                goodbye: "¡Gracias por chatear! Si tienes más preguntas, no dudes en volver a escribir."
+                goodbye: "¡Gracias por chatear! Si tienes más preguntas, no dudes en volver a escribir.",
+                humor: "¡Ups! Parece que no tengo esa información. ¿Te cuento un chiste mientras tanto? ¿Por qué los programadores prefieren el té? Porque el café causa demasiados errores."
             },
             en: {
                 greeting: [
@@ -35,7 +36,8 @@ class Chatbot {
                 country: "Miguel is from Colombia.",
                 fieldOfStudy: "Miguel studies Systems Engineering.",
                 default: "Sorry, I don't understand that question. Could you rephrase it? I can talk about projects, skills, education, experience, or contact information.",
-                goodbye: "Thanks for chatting! If you have more questions, feel free to write again."
+                goodbye: "Thanks for chatting! If you have more questions, feel free to write again.",
+                humor: "Oops! It seems I don't have that information. Want to hear a joke in the meantime? Why do programmers prefer tea? Because coffee causes too many errors."
             }
         };
         this.init();
@@ -69,7 +71,7 @@ class Chatbot {
 
         this.setupEventListeners();
         this.updateOnlineStatus();
-        this.sendBotMessage(this.responses[this.language].greeting[0]); // Send welcome message
+        this.sendBotMessage(this.responses[this.language].greeting[0]); // Send welcome message immediately
     }
 
     setupEventListeners() {
@@ -86,19 +88,15 @@ class Chatbot {
     }
 
     toggleChat() {
-        this.chatContainer.style.display = 
-            this.chatContainer.style.display === 'none' || 
-            this.chatContainer.style.display === '' ? 'flex' : 'none';
+        this.chatContainer.classList.toggle('show');
         this.updateOnlineStatus();
+        if (this.chatContainer.classList.contains('show') && this.chatMessages.children.length === 0) {
+            this.sendBotMessage(this.responses[this.language].greeting[0]);
+        }
     }
 
     toggleOnlineStatus() {
-        this.isOnline = !this.isOnline;
-        this.updateOnlineStatus();
-    }
-
-    updateOnlineStatus() {
-        this.isOnline = this.chatContainer.style.display === 'flex';
+        this.isOnline = this.chatContainer.classList.contains('show');
         this.statusDot.style.background = this.isOnline ? '#2ecc71' : '#e74c3c';
         this.statusText.textContent = this.isOnline ? 'Online' : 'Offline';
     }
@@ -154,6 +152,8 @@ class Chatbot {
             response = this.responses[this.language].fieldOfStudy;
         } else if (message.includes('adios') || message.includes('bye')) {
             response = this.responses[this.language].goodbye;
+        } else if (message.includes('descargar') || message.includes('download')) {
+            response = this.responses[this.language].humor;
         } else {
             response = this.responses[this.language].default;
         }
@@ -212,5 +212,76 @@ class Chatbot {
 
 // Inicializar el chatbot cuando el DOM esté cargado
 document.addEventListener('DOMContentLoaded', () => {
-    new Chatbot();
+    const chatbot = new Chatbot();
+    const chatbotToggle = document.querySelector('.chatbot-toggle');
+    const chatbotContainer = document.querySelector('.chatbot-container');
+    const closeChat = document.querySelector('.close-chat');
+    const messages = document.querySelector('.chat-messages');
+    let isOpen = false;
+
+    // Mensaje de bienvenida con avatar
+    const welcomeMessage = {
+        delay: 1000,
+        message: `
+            <div class="message bot">
+                <img src="img/miguelGarcia.jpeg" alt="Bot Avatar" class="avatar">
+                <div class="text">
+                    ¡Hola! 👋 Soy el asistente virtual de Miguel. ¿En qué puedo ayudarte hoy?
+                </div>
+            </div>
+        `
+    };
+
+    const suggestions = [
+        "💼 Ver proyectos",
+        "📄 Descargar CV",
+        "📱 Información de contacto",
+        "🎓 Ver certificaciones"
+    ];
+
+    function toggleChat() {
+        isOpen = !isOpen;
+        chatbotContainer.classList.toggle('show');
+        
+        if (isOpen && messages.children.length === 0) { // No hay mensajes previos
+            setTimeout(() => {
+                messages.innerHTML += welcomeMessage.message;
+                setTimeout(() => {
+                    addSuggestions();
+                }, 1000);
+            }, welcomeMessage.delay);
+        }
+    }
+
+    chatbotToggle.addEventListener('click', toggleChat);
+    closeChat.addEventListener('click', () => {
+        isOpen = false;
+        chatbotContainer.classList.remove('show');
+    });
+
+    function addMessage(text, type) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${type}`;
+        messageDiv.innerHTML = text;
+        messages.appendChild(messageDiv);
+        messages.scrollTop = messages.scrollHeight;
+    }
+
+    function addSuggestions() {
+        const suggestionsDiv = document.createElement('div');
+        suggestionsDiv.className = 'suggestions';
+        suggestions.forEach(suggestion => {
+            const button = document.createElement('button');
+            button.className = 'suggestion-btn';
+            button.textContent = suggestion;
+            button.onclick = () => handleSuggestion(suggestion);
+            suggestionsDiv.appendChild(button);
+        });
+        messages.appendChild(suggestionsDiv);
+    }
+
+    function handleSuggestion(suggestion) {
+        addMessage(suggestion, 'user');
+        chatbot.handleUserMessage(suggestion);
+    }
 });
